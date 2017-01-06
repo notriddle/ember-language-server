@@ -6,10 +6,9 @@
 
 import {
   IPCMessageReader, IPCMessageWriter,
-  createConnection, IConnection, TextDocumentSyncKind,
+  createConnection, IConnection,
   TextDocuments, TextDocument, Diagnostic, DiagnosticSeverity,
-  InitializeParams, InitializeResult, TextDocumentPositionParams,
-  CompletionItem, CompletionItemKind
+  InitializeResult, CompletionItem, CompletionItemKind
 } from 'vscode-languageserver';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
@@ -36,7 +35,7 @@ connection.onInitialize((params): InitializeResult => {
         resolveProvider: true
       }
     }
-  }
+  };
 });
 
 // The content of a text document has changed. This event is emitted
@@ -71,7 +70,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let diagnostics: Diagnostic[] = [];
   let lines = textDocument.getText().split(/\r?\n/g);
   let problems = 0;
-  for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+  for (let i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
     let index = line.indexOf('typescript');
     if (index >= 0) {
@@ -91,14 +90,14 @@ function validateTextDocument(textDocument: TextDocument): void {
   connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
-connection.onDidChangeWatchedFiles((change) => {
+connection.onDidChangeWatchedFiles(() => {
   // Monitored files have change in VSCode
   connection.console.log('We recevied an file change event');
 });
 
 
 // This handler provides the initial list of the completion items.
-connection.onCompletion((textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
+connection.onCompletion((): CompletionItem[] => {
   // The pass parameter contains the position of the text document in
   // which code complete got requested. For the example we ignore this
   // info and always provide the same completion items.
@@ -113,18 +112,18 @@ connection.onCompletion((textDocumentPosition: TextDocumentPositionParams): Comp
       kind: CompletionItemKind.Text,
       data: 2
     }
-  ]
+  ];
 });
 
 // This handler resolve additional information for the item selected in
 // the completion list.
 connection.onCompletionResolve((item: CompletionItem): CompletionItem => {
   if (item.data === 1) {
-    item.detail = 'TypeScript details',
-    item.documentation = 'TypeScript documentation'
+    item.detail = 'TypeScript details';
+    item.documentation = 'TypeScript documentation';
   } else if (item.data === 2) {
-    item.detail = 'JavaScript details',
-    item.documentation = 'JavaScript documentation'
+    item.detail = 'JavaScript details';
+    item.documentation = 'JavaScript documentation';
   }
   return item;
 });
