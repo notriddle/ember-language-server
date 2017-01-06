@@ -1,8 +1,8 @@
 {
-  "name": "language-server-example",
-  "description": "Example implementation of a language server in node.",
+  "name": "ember-language-server",
+  "description": "Language Server for Ember.js.",
   "version": "0.0.1",
-  "author": "Microsoft Corporation",
+  "author": "Ember Language Server Authors",
   "license": "MIT",
   "engines": {
     "node": "*"
