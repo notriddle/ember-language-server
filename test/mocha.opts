@@ -1,0 +1,3 @@
+--ui bdd
+--require source-map-support/register
+lib/test/*-test.js lib/test/**/*-test.js
