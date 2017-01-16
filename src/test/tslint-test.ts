@@ -1,3 +1,3 @@
 import * as lint from 'mocha-tslint';
 
-lint('./tslint.json');
+lint('./tslint.json', ['src']);
