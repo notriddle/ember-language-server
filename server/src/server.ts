@@ -51,7 +51,6 @@ export default class Server {
     // Bind event handlers
     this.connection.onInitialize(this.onInitialize.bind(this));
     this.documents.onDidChangeContent(this.onDidChangeContent.bind(this));
-    this.connection.onDidOpenTextDocument(this.onDidOpenTextDocument.bind(this));
     this.connection.onDidChangeWatchedFiles(this.onDidChangeWatchedFiles.bind(this));
     this.connection.onDocumentSymbol(this.onDocumentSymbol.bind(this));
     this.connection.onDefinition(this.definitionProvider.handler);
@@ -81,10 +80,6 @@ export default class Server {
 
   private onDidChangeContent(change: any) {
     this.templateLinter.lint(change.document);
-  }
-
-  private onDidOpenTextDocument({ textDocument }: any) {
-    this.templateLinter.lint(textDocument);
   }
 
   private onDidChangeWatchedFiles() {
